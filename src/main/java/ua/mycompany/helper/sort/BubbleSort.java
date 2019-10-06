@@ -1,6 +1,6 @@
 package ua.mycompany.helper.sort;
 
-import ua.mycompany.domain.Student;
+import ua.mycompany.domain.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ public final class BubbleSort {
     private BubbleSort() {
     }
 
-    public static ArrayList<Student> sort(ArrayList<Student> students) {
+    public static ArrayList<Customer> sort(ArrayList<Customer> customers) {
 
-        for (int i = 0; i < students.size() - 1; i++) {
-            for (int j = 0; j < students.size() - i - 1; j++) {
-                if (students.get(j).compareTo(students.get(j + 1)) > 0)
-                    Utility.swap(students, j, j + 1);
+        for (int i = 0; i < customers.size() - 1; i++) {
+            for (int j = 0; j < customers.size() - i - 1; j++) {
+                if (customers.get(j).compareTo(customers.get(j + 1)) > 0)
+                    Utility.swap(customers, j, j + 1);
             }
         }
-        return students;
+        return customers;
     }
 }

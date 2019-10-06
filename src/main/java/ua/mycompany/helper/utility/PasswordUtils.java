@@ -38,7 +38,7 @@ public final class PasswordUtils {
         return returnValue;
     }
 
-    public static boolean verifyUserPassword(String providedPassword,
+    public static boolean verifyCustomerPassword(String providedPassword,
                                              String securedPassword) {
         boolean returnValue = false;
 
