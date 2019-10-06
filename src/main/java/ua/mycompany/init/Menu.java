@@ -1,7 +1,6 @@
 package ua.mycompany.init;
 
 import ua.mycompany.domain.Address;
-import ua.mycompany.domain.Department;
 import ua.mycompany.domain.Student;
 import ua.mycompany.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +19,12 @@ public class Menu {
     }
 
     public void run() {
-
-        Department kpi = new Department(228L, "KPI");
-
         Student ivan = Student.builder()
                 .withName("Ivan")
                 .withSurname("Zaichenko")
                 .withBirthday(LocalDate.of(1999, 1, 13))
                 .withAddress(new Address("Uman", "South", 13))
-                .withGroup("IP-62")
                 .withPhoneNumber("380911111111")
-                .withCourse(5)
-                .withDepartment(kpi)
                 .withEmail("ivan@gmail.com")
                 .withPassword("ivanIVAN70")
                 .build();
@@ -41,10 +34,7 @@ public class Menu {
                 .withSurname("Zaichenko")
                 .withBirthday(LocalDate.of(1999, 1, 13))
                 .withAddress(new Address("Uman", "South", 14))
-                .withGroup("IP-64")
                 .withPhoneNumber("380922222222")
-                .withCourse(4)
-                .withDepartment(kpi)
                 .withEmail("vasv@gmail.com")
                 .withPassword("vasVas25")
                 .build();
@@ -54,10 +44,7 @@ public class Menu {
                 .withSurname("Tsaruk")
                 .withBirthday(LocalDate.of(1999, 6, 11))
                 .withAddress(new Address("Uman", "South", 13))
-                .withGroup("IP-64")
                 .withPhoneNumber("380933333333")
-                .withCourse(4)
-                .withDepartment(kpi)
                 .withEmail("vv@gmail.com")
                 .withPassword("vovaVOVA7")
                 .build();

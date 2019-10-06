@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 public interface StudentRepository {
-    Optional<Student> save(Student student);
+    Student save(Student student);
 
     Optional<Student> findById(Long id);
 
@@ -20,11 +20,11 @@ public interface StudentRepository {
 
     Optional<Student> findByEmail(String email);
 
-    ArrayList<Student> findByDepartment(Long idDepartment);
-
-    ArrayList<Student> findByYear(int year);
-
-    ArrayList<Student> findByGroup(String group);
-
-    ArrayList<Student> findByDepartmentAndCourse(Long idDepartment, int course);
+//    ArrayList<Student> findByDepartment(Long idDepartment);
+//
+//    ArrayList<Student> findByYear(int year);
+//
+//    ArrayList<Student> findByGroup(String group);
+//
+//    ArrayList<Student> findByDepartmentAndCourse(Long idDepartment, int course);
 }
