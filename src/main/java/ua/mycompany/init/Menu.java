@@ -1,8 +1,8 @@
 package ua.mycompany.init;
 
 import ua.mycompany.domain.Address;
-import ua.mycompany.domain.Student;
-import ua.mycompany.service.StudentService;
+import ua.mycompany.domain.Customer;
+import ua.mycompany.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,15 +11,15 @@ import java.time.LocalDate;
 @Component
 public class Menu {
 
-    private StudentService studentService;
+    private CustomerService customerService;
 
     @Autowired
-    public Menu(StudentService studentService) {
-        this.studentService = studentService;
+    public Menu(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     public void run() {
-        Student ivan = Student.builder()
+        Customer ivan = Customer.builder()
                 .withName("Ivan")
                 .withSurname("Zaichenko")
                 .withBirthday(LocalDate.of(1999, 1, 13))
@@ -29,7 +29,7 @@ public class Menu {
                 .withPassword("ivanIVAN70")
                 .build();
 
-        Student vasyl = Student.builder()
+        Customer vasyl = Customer.builder()
                 .withName("Vasyl")
                 .withSurname("Zaichenko")
                 .withBirthday(LocalDate.of(1999, 1, 13))
@@ -39,7 +39,7 @@ public class Menu {
                 .withPassword("vasVas25")
                 .build();
 
-        Student volodymyr = Student.builder()
+        Customer volodymyr = Customer.builder()
                 .withName("Volodymyr")
                 .withSurname("Tsaruk")
                 .withBirthday(LocalDate.of(1999, 6, 11))
@@ -49,9 +49,9 @@ public class Menu {
                 .withPassword("vovaVOVA7")
                 .build();
 
-        studentService.register(ivan);
-        studentService.register(vasyl);
-        studentService.register(volodymyr);
+        customerService.register(ivan);
+        customerService.register(vasyl);
+        customerService.register(volodymyr);
 
     }
 }
