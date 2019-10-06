@@ -2,6 +2,7 @@ package ua.mycompany.init;
 
 import ua.mycompany.domain.Address;
 import ua.mycompany.domain.Customer;
+import ua.mycompany.domain.Role;
 import ua.mycompany.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,7 @@ public class Menu {
                 .withPhoneNumber("380911111111")
                 .withEmail("ivan@gmail.com")
                 .withPassword("ivanIVAN70")
+                .withRole(Role.ADMIN)
                 .build();
 
         Customer vasyl = Customer.builder()
