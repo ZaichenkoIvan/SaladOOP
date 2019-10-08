@@ -2,7 +2,7 @@ package ua.mycompany.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.mycompany.domain.Customer;
+import ua.mycompany.domain.customer.Customer;
 import ua.mycompany.service.AdminService;
 
 import java.util.ArrayList;

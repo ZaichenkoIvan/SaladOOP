@@ -1,7 +1,7 @@
 package ua.mycompany.repository;
 
 
-import ua.mycompany.domain.Customer;
+import ua.mycompany.domain.customer.Customer;
 
 import java.util.Optional;
 

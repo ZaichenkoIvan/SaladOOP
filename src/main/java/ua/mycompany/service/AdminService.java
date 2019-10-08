@@ -1,6 +1,6 @@
 package ua.mycompany.service;
 
-import ua.mycompany.domain.Customer;
+import ua.mycompany.domain.customer.Customer;
 
 import java.util.ArrayList;
 

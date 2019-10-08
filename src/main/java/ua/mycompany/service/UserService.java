@@ -1,8 +1,6 @@
 package ua.mycompany.service;
 
-import ua.mycompany.domain.Customer;
-
-import java.util.ArrayList;
+import ua.mycompany.domain.customer.Customer;
 
 public interface UserService {
     Customer register(Customer customer);
