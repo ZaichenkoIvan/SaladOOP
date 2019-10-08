@@ -1,5 +1,7 @@
 package ua.mycompany.domain.customer;
 
+import ua.mycompany.domain.order.Salad;
+
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Objects;
@@ -15,6 +17,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
     private final String password;
     private final Role role;
     private static Long counter = 0L;
+    private Salad salad;
 
     private final String email;
 
@@ -90,6 +93,14 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
 
     public Role getRole() {
         return role;
+    }
+
+    public Salad getSalad() {
+        return salad;
+    }
+
+    public void setSalad(Salad salad) {
+        this.salad = salad;
     }
 
     @Override

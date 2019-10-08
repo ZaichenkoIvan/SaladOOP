@@ -227,25 +227,4 @@ public class CustomerViewInfo {
         return adminController.findById(in.nextLong());
     }
 
-//
-//    private ArrayList<Customer> findByDepartment(){
-//        System.out.println(lang.getString("inputIdDepartment"));
-//        return CustomerController.findByDepartment(in.nextLong());
-//    }
-//
-//    private ArrayList<Customer> findByGroup(){
-//        System.out.println(lang.getString("inputGroup"));
-//        String group = in.nextLine();
-//        group = in.nextLine();
-//        return CustomerController.findByGroup(group);
-//    }
-//
-//    private ArrayList<Customer> findByDepartmentAndCourse(){
-//        System.out.println(lang.getString("inputIdDepartment"));
-//        Long department = in.nextLong();
-//        System.out.println(lang.getString("inputCourse"));
-//        int course = in.nextInt();
-//        return CustomerController.findByDepartmentAndCourse(department,course);
-//    }
-
 }

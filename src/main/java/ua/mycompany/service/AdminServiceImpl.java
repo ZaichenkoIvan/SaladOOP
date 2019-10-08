@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class AdminServiceImpl extends UserServiceImpl implements AdminService{
+public class AdminServiceImpl extends UserServiceImpl implements AdminService {
 
     @Autowired
     public AdminServiceImpl(CustomerRepository customerRepository) {
@@ -28,9 +28,9 @@ public class AdminServiceImpl extends UserServiceImpl implements AdminService{
         if (id < 0) {
             throw new UncorrectedIdRuntimeException("Id of customer must be > 0");
         }
-        Optional<Customer> CustomerDeleteById = customerRepository.deleteById(id);
-        if (CustomerDeleteById.isPresent()) {
-            return CustomerDeleteById.get();
+        Optional<Customer> customerDeleteById = customerRepository.deleteById(id);
+        if (customerDeleteById.isPresent()) {
+            return customerDeleteById.get();
         }
         throw new UncorrectedIdRuntimeException("Id of customer uncorrected");
     }

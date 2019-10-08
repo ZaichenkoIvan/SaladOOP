@@ -10,12 +10,12 @@ import java.util.Map;
 import java.util.Optional;
 
 @Repository
-public class OrderSaladRepositoryImpl implements OrderSaladRepository {
+public class VegetableRepositoryImpl implements VegetableRepository {
     private Map<Long, Vegetable> idToVegetable = new HashMap<>();
     private static Long counter = 0L;
 
     @Autowired
-    public OrderSaladRepositoryImpl() {
+    public VegetableRepositoryImpl() {
     }
 
     @Override
