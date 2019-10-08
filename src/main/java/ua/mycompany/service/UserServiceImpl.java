@@ -1,7 +1,8 @@
 package ua.mycompany.service;
 
 
-import ua.mycompany.domain.Customer;
+import org.springframework.context.annotation.Primary;
+import ua.mycompany.domain.customer.Customer;
 import ua.mycompany.exception.UncorrectedIdRuntimeException;
 import ua.mycompany.exception.UncorrectedLoginRuntimeException;
 import ua.mycompany.exception.CustomerNotExistRuntimeException;
@@ -10,16 +11,16 @@ import ua.mycompany.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class CustomerServiceImpl implements CustomerService {
+@Primary
+public class UserServiceImpl implements UserService {
 
-    private CustomerRepository customerRepository;
+    protected CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public UserServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
@@ -66,11 +67,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public ArrayList<Customer> findAll() {
-        return customerRepository.findAll();
-    }
-
-    @Override
     public void update(Customer customer) {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer not exist");
@@ -78,19 +74,6 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.update(customer);
     }
 
-    @Override
-    public Customer deleteById(Long id) {
-        if (id < 0) {
-            throw new UncorrectedIdRuntimeException("Id must be positive");
-        }
-
-        Optional<Customer> CustomerFindingById = customerRepository.deleteById(id);
-
-        if (CustomerFindingById.isPresent()) {
-            return CustomerFindingById.get();
-        }
-        throw new UncorrectedIdRuntimeException("Id of Customer must be correct");
-    }
 }
 
 //    @Override
