@@ -1,6 +1,7 @@
 package ua.mycompany.service;
 
 
+import org.springframework.context.annotation.Primary;
 import ua.mycompany.domain.Customer;
 import ua.mycompany.exception.UncorrectedIdRuntimeException;
 import ua.mycompany.exception.UncorrectedLoginRuntimeException;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@Primary
 public class UserServiceImpl implements UserService {
 
     protected CustomerRepository customerRepository;

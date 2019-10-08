@@ -1,6 +1,5 @@
 package ua.mycompany.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.mycompany.domain.Customer;
@@ -23,18 +22,16 @@ public class AdminServiceImpl extends UserServiceImpl implements AdminService{
         return customerRepository.findAll();
     }
 
+
     @Override
     public Customer deleteById(Long id) {
         if (id < 0) {
-            throw new UncorrectedIdRuntimeException("Id must be positive");
+            throw new UncorrectedIdRuntimeException("Id of customer must be > 0");
         }
-
-        Optional<Customer> CustomerFindingById = customerRepository.deleteById(id);
-
-        if (CustomerFindingById.isPresent()) {
-            return CustomerFindingById.get();
+        Optional<Customer> CustomerDeleteById = customerRepository.deleteById(id);
+        if (CustomerDeleteById.isPresent()) {
+            return CustomerDeleteById.get();
         }
-        throw new UncorrectedIdRuntimeException("Id of Customer must be correct");
+        throw new UncorrectedIdRuntimeException("Id of customer uncorrected");
     }
 }
-

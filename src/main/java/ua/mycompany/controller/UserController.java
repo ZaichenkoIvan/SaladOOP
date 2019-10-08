@@ -1,11 +1,13 @@
 package ua.mycompany.controller;
 
+import org.springframework.context.annotation.Primary;
 import ua.mycompany.domain.Customer;
 import ua.mycompany.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Primary
 public class UserController {
 
     private UserService userService;

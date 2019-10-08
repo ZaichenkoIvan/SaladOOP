@@ -5,8 +5,7 @@ import ua.mycompany.domain.Customer;
 import java.util.ArrayList;
 
 public interface AdminService extends UserService{
-    ArrayList<Customer> findAll();
+    ArrayList<Customer> findAll ();
 
     Customer deleteById(Long id);
-
 }
