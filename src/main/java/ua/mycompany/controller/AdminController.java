@@ -42,12 +42,14 @@ public class AdminController {
         return adminService.deleteById(id);
     }
 
-    public void addVegetable(Customer customer, Vegetable vegetable) {
-        adminService.addVegetable(customer, vegetable);
+    public ArrayList<Vegetable> findAllVegetable(Customer customer) {return adminService.findAllVegetable(customer);}
+
+    public void addVegetable(Customer customer, Long idVegetable) {
+        adminService.addVegetable(customer, idVegetable);
     }
 
-    public void deleteVegetable(Customer customer, Vegetable vegetable) {
-        adminService.deleteVegetable(customer, vegetable);
+    public void deleteVegetable(Customer customer, Long idVegetable) {
+        adminService.deleteVegetable(customer, idVegetable);
     }
 
     public ArrayList<Vegetable> sortSalad(Customer customer) {

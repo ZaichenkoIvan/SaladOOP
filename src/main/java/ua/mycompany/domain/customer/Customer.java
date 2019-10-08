@@ -48,6 +48,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
         this.email = builder.email;
         this.password = builder.password;
         this.role = builder.role;
+        salad = new Salad();
     }
 
     @Override
@@ -139,6 +140,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", email='" + email + '\'' +
+                ", salad=" + salad +
                 '}';
     }
 

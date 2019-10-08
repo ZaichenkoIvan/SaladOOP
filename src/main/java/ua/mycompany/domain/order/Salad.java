@@ -64,4 +64,15 @@ public class Salad {
 
         return searchElementCalories;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("Salad {");
+        for (Vegetable vegetable: vegetables
+             ) {
+            result.append(vegetable.toString());
+        }
+        result.append("}");
+        return result.toString();
+    }
 }

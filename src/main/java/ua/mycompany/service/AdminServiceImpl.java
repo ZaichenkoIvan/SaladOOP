@@ -13,8 +13,8 @@ import java.util.Optional;
 public class AdminServiceImpl extends UserServiceImpl implements AdminService {
 
     @Autowired
-    public AdminServiceImpl(CustomerRepository customerRepository) {
-        super(customerRepository);
+    public AdminServiceImpl(CustomerRepository customerRepository, VegetableService vegetableService) {
+        super(customerRepository, vegetableService);
     }
 
     @Override

@@ -14,9 +14,11 @@ public interface UserService {
 
     void update(Customer customer);
 
-    void addVegetable(Customer customer, Vegetable vegetable);
+    ArrayList<Vegetable> findAllVegetable(Customer customer);
 
-    void deleteVegetable(Customer customer, Vegetable vegetable);
+    void addVegetable(Customer customer, Long idVegetables);
+
+    void deleteVegetable(Customer customer, Long idVegetables);
 
     ArrayList<Vegetable> sortSalad(Customer customer);
 

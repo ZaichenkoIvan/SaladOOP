@@ -21,10 +21,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     protected CustomerRepository customerRepository;
+    private VegetableService vegetableService;
 
     @Autowired
-    public UserServiceImpl(CustomerRepository customerRepository) {
+    public UserServiceImpl(CustomerRepository customerRepository, VegetableService vegetableService) {
         this.customerRepository = customerRepository;
+        this.vegetableService = vegetableService;
     }
 
     public Customer register(Customer customer) {
@@ -78,27 +80,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addVegetable(Customer customer, Vegetable vegetable) {
+    public ArrayList<Vegetable> findAllVegetable(Customer customer){
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer not exist");
         }
-        if (vegetable == null) {
-            throw new VegetableNotExistRuntimeException("Vegetable not exist");
+
+        return customer.getSalad().getVegetables();
+    }
+
+    @Override
+    public void addVegetable(Customer customer, Long idVegetable) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
         }
 
+        Vegetable vegetable = vegetableService.findById(idVegetable);
         customer.getSalad().add(vegetable);
         update(customer);
     }
 
     @Override
-    public void deleteVegetable(Customer customer, Vegetable vegetable) {
+    public void deleteVegetable(Customer customer, Long idVegetable) {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer not exist");
         }
-        if (vegetable == null) {
-            throw new VegetableNotExistRuntimeException("Vegetable not exist");
-        }
 
+        Vegetable vegetable = vegetableService.findById(idVegetable);
         customer.getSalad().remove(vegetable);
         update(customer);
     }
