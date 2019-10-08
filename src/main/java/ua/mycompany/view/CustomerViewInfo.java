@@ -1,6 +1,6 @@
 package ua.mycompany.view;
 
-import ua.mycompany.controller.CustomerController;
+import ua.mycompany.controller.AdminController;
 import ua.mycompany.domain.Customer;
 import ua.mycompany.helper.sort.BubbleSort;
 import ua.mycompany.helper.utility.UTF8Control;
@@ -14,13 +14,13 @@ import java.util.*;
 
 @Component
 public class CustomerViewInfo {
-    private CustomerController customerController;
+    private AdminController adminController;
     private Scanner in = new Scanner(System.in);
     private ResourceBundle lang;
 
     @Autowired
-    public CustomerViewInfo(CustomerController customerController) {
-        this.customerController = customerController;
+    public CustomerViewInfo(AdminController adminController) {
+        this.adminController = adminController;
     }
 
     public void run() {
@@ -75,7 +75,7 @@ public class CustomerViewInfo {
 
         switch (choice) {
             case 1:
-                printAllCustomers(customerController.findAll());
+                printAllCustomers(adminController.findAll());
                 break;
             case 2:
                 createCustomerFromConsole();
@@ -142,7 +142,7 @@ public class CustomerViewInfo {
                 .withPassword(password)
                 .build();
 
-        customerController.register(customer);
+        adminController.register(customer);
         System.out.println(lang.getString("CustomerCreated") + "\n");
 
         menu();
@@ -151,16 +151,16 @@ public class CustomerViewInfo {
 
     private void sortCustomer() {
         System.out.println(lang.getString("CustomersAreSorted") + "\n");
-        printAllCustomers(BubbleSort.sort(customerController.findAll()));
+        printAllCustomers(BubbleSort.sort(adminController.findAll()));
     }
 
-    private Customer loginCustomer(){
+    private Customer loginCustomer() {
         String email = writeFieldWithValidator("email");
 
         System.out.println(lang.getString("passwordCustomer"));
         String password = in.nextLine();
 
-        return customerController.login(email,password);
+        return adminController.login(email, password);
 
     }
 
@@ -185,9 +185,9 @@ public class CustomerViewInfo {
         return fieldInput;
     }
 
-    private Customer findById(){
+    private Customer findById() {
         System.out.println(lang.getString("inputId"));
-        return customerController.findById(in.nextLong());
+        return adminController.findById(in.nextLong());
     }
 //
 //    private ArrayList<Customer> findByDepartment(){
