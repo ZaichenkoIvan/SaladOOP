@@ -3,6 +3,7 @@ package ua.mycompany.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.mycompany.domain.customer.Customer;
+import ua.mycompany.domain.order.Vegetable;
 import ua.mycompany.service.AdminService;
 
 import java.util.ArrayList;
@@ -39,5 +40,25 @@ public class AdminController {
 
     public Customer deleteById(Long id) {
         return adminService.deleteById(id);
+    }
+
+    public void addVegetable(Customer customer, Vegetable vegetable) {
+        adminService.addVegetable(customer, vegetable);
+    }
+
+    public void deleteVegetable(Customer customer, Vegetable vegetable) {
+        adminService.deleteVegetable(customer, vegetable);
+    }
+
+    public ArrayList<Vegetable> sortSalad(Customer customer) {
+        return adminService.sortSalad(customer);
+    }
+
+    public ArrayList<Vegetable> rangeByCalories(Customer customer, double startRange, double endRange){
+        return adminService.rangeByCalories(customer,startRange,endRange);
+    }
+
+    public int summaryOfCaloriesSalad(Customer customer){
+        return adminService.summaryOfCaloriesSalad(customer);
     }
 }

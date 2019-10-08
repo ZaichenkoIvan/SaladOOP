@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ua.mycompany.domain.customer.Customer;
+import ua.mycompany.domain.order.Vegetable;
 import ua.mycompany.exception.CustomerNotExistRuntimeException;
 import ua.mycompany.exception.UncorrectedIdRuntimeException;
 import ua.mycompany.exception.UncorrectedLoginRuntimeException;
+import ua.mycompany.exception.VegetableNotExistRuntimeException;
 import ua.mycompany.helper.utility.PasswordUtils;
 import ua.mycompany.repository.CustomerRepository;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -70,7 +73,60 @@ public class UserServiceImpl implements UserService {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer not exist");
         }
+
         customerRepository.update(customer);
     }
 
+    @Override
+    public void addVegetable(Customer customer, Vegetable vegetable) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+        if (vegetable == null) {
+            throw new VegetableNotExistRuntimeException("Vegetable not exist");
+        }
+
+        customer.getSalad().add(vegetable);
+        update(customer);
+    }
+
+    @Override
+    public void deleteVegetable(Customer customer, Vegetable vegetable) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+        if (vegetable == null) {
+            throw new VegetableNotExistRuntimeException("Vegetable not exist");
+        }
+
+        customer.getSalad().remove(vegetable);
+        update(customer);
+    }
+
+    @Override
+    public ArrayList<Vegetable> sortSalad(Customer customer) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        return customer.getSalad().sort();
+    }
+
+    @Override
+    public ArrayList<Vegetable> rangeByCalories(Customer customer, double startRange, double endRange) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        return customer.getSalad().searchElementCalories(startRange, endRange);
+    }
+
+    @Override
+    public int summaryOfCaloriesSalad(Customer customer) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        return customer.getSalad().getSummaryOfCalories();
+    }
 }
