@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.mycompany.controller.AdminController;
 import ua.mycompany.controller.UserController;
+import ua.mycompany.controller.VegetableController;
 import ua.mycompany.domain.customer.Customer;
 import ua.mycompany.domain.customer.Role;
+import ua.mycompany.domain.order.Vegetable;
 import ua.mycompany.helper.sort.BubbleSort;
 import ua.mycompany.helper.utility.UTF8Control;
 import ua.mycompany.helper.validator.ValidatorFactory;
@@ -21,14 +23,16 @@ import java.util.Scanner;
 public class CustomerViewInfo {
     private UserController userController;
     private AdminController adminController;
+    private VegetableController vegetableController;
     private Scanner in = new Scanner(System.in);
     private ResourceBundle lang;
     private Customer currentCustomer;
 
     @Autowired
-    public CustomerViewInfo(UserController userController, AdminController adminController) {
+    public CustomerViewInfo(UserController userController, AdminController adminController, VegetableController vegetableController) {
         this.userController = userController;
         this.adminController = adminController;
+        this.vegetableController = vegetableController;
     }
 
     public void run() {
@@ -87,9 +91,16 @@ public class CustomerViewInfo {
         System.out.println("1 - " + lang.getString("viewCustomer"));
         System.out.println("2 - " + lang.getString("sortCustomer"));
         System.out.println("3 - " + lang.getString("inputId"));
-
-        System.out.println("9 - " + lang.getString("chooseLanguage"));
-        System.out.println("0 - " + lang.getString("exit"));
+        System.out.println("4 - " + lang.getString("viewAllVegetables"));
+        System.out.println("5 - " + lang.getString("deleteVegetables"));
+        System.out.println("6 - " + lang.getString("viewOwnVegetables"));
+        System.out.println("7 - " + lang.getString("addOwnVegetables"));
+        System.out.println("8 - " + lang.getString("deleteOwnVegetables"));
+        System.out.println("9 - " + lang.getString("sortOwnVegetables"));
+        System.out.println("10 - " + lang.getString("rangeOwnVegetablesByCalories"));
+        System.out.println("11 - " + lang.getString("sumOwnVegetablesByCalories"));
+        System.out.println("12 - " + lang.getString("chooseLanguage"));
+        System.out.println("13 - " + lang.getString("exit"));
 
 
         int choice;
@@ -109,23 +120,70 @@ public class CustomerViewInfo {
             case 3:
                 System.out.println(findById());
                 break;
+            case 4:
+                printAllVegetables(vegetableController.findAll());
+                break;
+            case 5:
+                deleteVegetable();
+                break;
+            case 6:
+                printAllVegetables(adminController.findAllVegetable(currentCustomer));
+                break;
+            case 7:
+                addOwnVegetable();
+                break;
+            case 8:
+                deleteOwnVegetable();
+                break;
             case 9:
+                printAllVegetables(adminController.sortSalad(currentCustomer));
+                break;
+            case 10:
+                printAllVegetables(adminController.rangeByCalories(currentCustomer,30,70));
+                break;
+            case 11:
+                System.out.println((adminController.summaryOfCaloriesSalad(currentCustomer)));
+                break;
+            case 12:
                 chooseMenuLang();
                 break;
-            case 0:
+            case 13:
                 System.exit(0);
         }
         menuAdmin();
 
     }
 
+    private void deleteOwnVegetable() {
+        System.out.println(lang.getString("inputId"));
+        Long id = in.nextLong();
+        adminController.deleteVegetable(currentCustomer, id);
+    }
+
+    private void addOwnVegetable() {
+        System.out.println(lang.getString("inputId"));
+        Long id = in.nextLong();
+        adminController.addVegetable(currentCustomer, id);
+    }
+
+    private void deleteVegetable() {
+        System.out.println(lang.getString("inputId"));
+        Long id = in.nextLong();
+        vegetableController.deleteById(id);
+    }
+
     private void menuUser() {
         System.out.println(lang.getString("menu"));
-        System.out.println("1 - " + lang.getString("viewInfoUser"));
-
-        System.out.println("8 - " + lang.getString("chooseLanguage"));
-        System.out.println("9 - " + lang.getString("exit"));
-
+        System.out.println("1 - " + lang.getString("currentId"));
+        System.out.println("2 - " + lang.getString("viewAllVegetables"));
+        System.out.println("3 - " + lang.getString("viewOwnVegetables"));
+        System.out.println("4 - " + lang.getString("addOwnVegetables"));
+        System.out.println("5 - " + lang.getString("deleteOwnVegetables"));
+        System.out.println("6 - " + lang.getString("sortOwnVegetables"));
+        System.out.println("7 - " + lang.getString("rangeOwnVegetablesByCalories"));
+        System.out.println("8 - " + lang.getString("sumOwnVegetablesByCalories"));
+        System.out.println("9 - " + lang.getString("chooseLanguage"));
+        System.out.println("10 - " + lang.getString("exit"));
 
         int choice;
         try {
@@ -138,13 +196,46 @@ public class CustomerViewInfo {
             case 1:
                 System.out.println(userController.findById(currentCustomer.getId()));
                 break;
+            case 2:
+                printAllVegetables(vegetableController.findAll());
+                break;
+            case 3:
+                printAllVegetables(userController.findAllVegetable(currentCustomer));
+                break;
+            case 4:
+                addOwnVegetableUser();
+                break;
+            case 5:
+                deleteOwnVegetableUser();
+                break;
+            case 6:
+                printAllVegetables(userController.sortSalad(currentCustomer));
+                break;
+            case 7:
+                printAllVegetables(userController.rangeByCalories(currentCustomer,30,70));
+                break;
             case 8:
-                chooseMenuLang();
+                System.out.println((userController.summaryOfCaloriesSalad(currentCustomer)));
                 break;
             case 9:
+                chooseMenuLang();
+                break;
+            case 10:
                 System.exit(0);
         }
         menuUser();
+    }
+
+    private void deleteOwnVegetableUser() {
+        System.out.println(lang.getString("inputId"));
+        Long id = in.nextLong();
+        userController.deleteVegetable(currentCustomer, id);
+    }
+
+    private void addOwnVegetableUser() {
+        System.out.println(lang.getString("inputId"));
+        Long id = in.nextLong();
+        userController.addVegetable(currentCustomer, id);
     }
 
 
@@ -217,6 +308,19 @@ public class CustomerViewInfo {
         }
     }
 
+    private void printAllVegetables(ArrayList<Vegetable> vegetables) {
+        if (vegetables.isEmpty()) {
+            System.out.println(lang.getString("noVegetablesYet"));
+        } else {
+            System.out.println("\n" + lang.getString("listVegetables"));
+            for (Vegetable vegetable : vegetables
+            ) {
+                System.out.println(vegetable);
+            }
+            System.out.println();
+        }
+    }
+
     private void sortCustomer() {
         System.out.println(lang.getString("CustomersAreSorted") + "\n");
         printAllCustomers(BubbleSort.sort(adminController.findAll()));
@@ -226,26 +330,5 @@ public class CustomerViewInfo {
         System.out.println(lang.getString("inputId"));
         return adminController.findById(in.nextLong());
     }
-
-//
-//    private ArrayList<Customer> findByDepartment(){
-//        System.out.println(lang.getString("inputIdDepartment"));
-//        return CustomerController.findByDepartment(in.nextLong());
-//    }
-//
-//    private ArrayList<Customer> findByGroup(){
-//        System.out.println(lang.getString("inputGroup"));
-//        String group = in.nextLine();
-//        group = in.nextLine();
-//        return CustomerController.findByGroup(group);
-//    }
-//
-//    private ArrayList<Customer> findByDepartmentAndCourse(){
-//        System.out.println(lang.getString("inputIdDepartment"));
-//        Long department = in.nextLong();
-//        System.out.println(lang.getString("inputCourse"));
-//        int course = in.nextInt();
-//        return CustomerController.findByDepartmentAndCourse(department,course);
-//    }
 
 }

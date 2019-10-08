@@ -7,7 +7,7 @@ public class Tomato extends Vegetable {
 
     @Override
     public String toString() {
-        return "This is Tomato{" + "calories=" + calories + ", weight=" + weight + ", price=" + price + '}';
+        return "This is Tomato{id="+ id + ", calories=" + calories + ", weight=" + weight + ", price=" + price + '}';
     }
 }
 

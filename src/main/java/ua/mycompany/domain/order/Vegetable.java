@@ -8,6 +8,8 @@ public abstract class Vegetable implements Comparable<Vegetable> {
     protected final int calories;
     protected final double weight;
     protected final int price;
+    protected final Long id;
+    protected static Long counter = 0L;
 
     public Vegetable(int calories, double weight, int price) {
         if (calories < 0 || weight < 0 || price < 0) {
@@ -17,6 +19,11 @@ public abstract class Vegetable implements Comparable<Vegetable> {
         this.calories = calories;
         this.weight = weight;
         this.price = price;
+        this.id = ++counter;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public int getCalories() {

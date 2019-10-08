@@ -1,16 +1,19 @@
 package ua.mycompany.service;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 import ua.mycompany.domain.customer.Customer;
+import ua.mycompany.domain.order.Vegetable;
+import ua.mycompany.exception.CustomerNotExistRuntimeException;
 import ua.mycompany.exception.UncorrectedIdRuntimeException;
 import ua.mycompany.exception.UncorrectedLoginRuntimeException;
-import ua.mycompany.exception.CustomerNotExistRuntimeException;
+import ua.mycompany.exception.VegetableNotExistRuntimeException;
 import ua.mycompany.helper.utility.PasswordUtils;
 import ua.mycompany.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -18,10 +21,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     protected CustomerRepository customerRepository;
+    private VegetableService vegetableService;
 
     @Autowired
-    public UserServiceImpl(CustomerRepository customerRepository) {
+    public UserServiceImpl(CustomerRepository customerRepository, VegetableService vegetableService) {
         this.customerRepository = customerRepository;
+        this.vegetableService = vegetableService;
     }
 
     public Customer register(Customer customer) {
@@ -51,17 +56,16 @@ public class UserServiceImpl implements UserService {
         throw new UncorrectedLoginRuntimeException("Password is uncorrected");
     }
 
-
     @Override
     public Customer findById(Long id) {
         if (id < 0) {
             throw new UncorrectedIdRuntimeException("Id of Customer must be positive");
         }
 
-        Optional<Customer> CustomerFindingById = customerRepository.findById(id);
+        Optional<Customer> customerFindingById = customerRepository.findById(id);
 
-        if (CustomerFindingById.isPresent()) {
-            return CustomerFindingById.get();
+        if (customerFindingById.isPresent()) {
+            return customerFindingById.get();
         }
         throw new UncorrectedIdRuntimeException("Id of Customer must be correct");
     }
@@ -71,44 +75,65 @@ public class UserServiceImpl implements UserService {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer not exist");
         }
+
         customerRepository.update(customer);
     }
 
-}
+    @Override
+    public ArrayList<Vegetable> findAllVegetable(Customer customer){
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
 
-//    @Override
-//    public ArrayList<Customer> findByDepartment(Long idDepartment) {
-//        if (idDepartment < 0) {
-//            throw new UncorrectedIdRuntimeException("Id must be positive");
-//        }
-//
-//        return customerRepository.findByDepartment(idDepartment);
-//
-//
-//    }
-//
-//    @Override
-//    public ArrayList<Customer> findByYear(int year) {
-//        if (year < 1900) {
-//            throw new IllegalArgumentException("Year must be >1900");
-//        }
-//
-//        return customerRepository.findByYear(year);
-//    }
-//
-//    @Override
-//    public ArrayList<Customer> findByGroup(String group) {
-//        if (group == null) {
-//            throw new IllegalArgumentException("Group is not null");
-//        }
-//        return customerRepository.findByGroup(group);
-//    }
-//
-//    @Override
-//    public ArrayList<Customer> findByDepartmentAndCourse(Long idDepartment, int course) {
-//        if (course < 0 || course > 6 || idDepartment < 0) {
-//            throw new IllegalArgumentException("Course must be in range [0;6] or id department must be possitive");
-//        }
-//        return customerRepository.findByDepartmentAndCourse(idDepartment, course);
-//    }
-//}
+        return customer.getSalad().getVegetables();
+    }
+
+    @Override
+    public void addVegetable(Customer customer, Long idVegetable) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        Vegetable vegetable = vegetableService.findById(idVegetable);
+        customer.getSalad().add(vegetable);
+        update(customer);
+    }
+
+    @Override
+    public void deleteVegetable(Customer customer, Long idVegetable) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        Vegetable vegetable = vegetableService.findById(idVegetable);
+        customer.getSalad().remove(vegetable);
+        update(customer);
+    }
+
+    @Override
+    public ArrayList<Vegetable> sortSalad(Customer customer) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        return customer.getSalad().sort();
+    }
+
+    @Override
+    public ArrayList<Vegetable> rangeByCalories(Customer customer, double startRange, double endRange) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        return customer.getSalad().searchElementCalories(startRange, endRange);
+    }
+
+    @Override
+    public int summaryOfCaloriesSalad(Customer customer) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        return customer.getSalad().getSummaryOfCalories();
+    }
+}
