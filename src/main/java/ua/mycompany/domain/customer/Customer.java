@@ -1,6 +1,7 @@
 package ua.mycompany.domain.customer;
 
 import ua.mycompany.domain.order.Salad;
+import ua.mycompany.util.prototype.CustomerPrototype;
 
 import java.time.LocalDate;
 import java.util.Comparator;

@@ -1,7 +1,7 @@
 package ua.mycompany.domain.order;
 
 import ua.mycompany.exception.ActionSaladWithNullRuntimeException;
-import ua.mycompany.exception.RangeUncorrecedRuntimeException;
+import ua.mycompany.exception.RangeUncorrectedRuntimeException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,7 +52,7 @@ public class Salad {
 
     public ArrayList<Vegetable> searchElementCalories(double startRange, double endRange) {
         if (startRange > endRange || startRange < 0) {
-            throw new RangeUncorrecedRuntimeException("Range isn't correct");
+            throw new RangeUncorrectedRuntimeException("Range isn't correct");
         }
 
         ArrayList<Vegetable> searchElementCalories = new ArrayList<>();
@@ -68,8 +68,8 @@ public class Salad {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("Salad {");
-        for (Vegetable vegetable: vegetables
-             ) {
+        for (Vegetable vegetable : vegetables
+        ) {
             result.append(vegetable.toString());
         }
         result.append("}");

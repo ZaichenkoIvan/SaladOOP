@@ -42,7 +42,9 @@ public class AdminController {
         return adminService.deleteById(id);
     }
 
-    public ArrayList<Vegetable> findAllVegetable(Customer customer) {return adminService.findAllVegetable(customer);}
+    public ArrayList<Vegetable> findAllVegetable(Customer customer) {
+        return adminService.findAllVegetable(customer);
+    }
 
     public void addVegetable(Customer customer, Long idVegetable) {
         adminService.addVegetable(customer, idVegetable);
@@ -56,11 +58,11 @@ public class AdminController {
         return adminService.sortSalad(customer);
     }
 
-    public ArrayList<Vegetable> rangeByCalories(Customer customer, double startRange, double endRange){
-        return adminService.rangeByCalories(customer,startRange,endRange);
+    public ArrayList<Vegetable> rangeByCalories(Customer customer, double startRange, double endRange) {
+        return adminService.rangeByCalories(customer, startRange, endRange);
     }
 
-    public int summaryOfCaloriesSalad(Customer customer){
+    public int summaryOfCaloriesSalad(Customer customer) {
         return adminService.summaryOfCaloriesSalad(customer);
     }
 }

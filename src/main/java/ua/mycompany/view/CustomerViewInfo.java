@@ -8,9 +8,9 @@ import ua.mycompany.controller.VegetableController;
 import ua.mycompany.domain.customer.Customer;
 import ua.mycompany.domain.customer.Role;
 import ua.mycompany.domain.order.Vegetable;
-import ua.mycompany.helper.sort.BubbleSort;
-import ua.mycompany.helper.utility.UTF8Control;
-import ua.mycompany.helper.validator.ValidatorFactory;
+import ua.mycompany.util.localization.UTF8Control;
+import ua.mycompany.util.sort.BubbleSort;
+import ua.mycompany.util.validator.ValidatorFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -41,7 +41,7 @@ public class CustomerViewInfo {
 
     private void chooseMenuLang() {
 
-        System.out.println("Choose language/Оберіть мову");
+        System.out.println("\n Choose language/Оберіть мову");
         System.out.println("English (1)");
         System.out.println("Українська (2)");
         int chooseLanguage = in.nextInt();
@@ -139,7 +139,7 @@ public class CustomerViewInfo {
                 printAllVegetables(adminController.sortSalad(currentCustomer));
                 break;
             case 10:
-                printAllVegetables(adminController.rangeByCalories(currentCustomer,30,70));
+                printAllVegetables(adminController.rangeByCalories(currentCustomer, 30, 70));
                 break;
             case 11:
                 System.out.println((adminController.summaryOfCaloriesSalad(currentCustomer)));
@@ -212,7 +212,7 @@ public class CustomerViewInfo {
                 printAllVegetables(userController.sortSalad(currentCustomer));
                 break;
             case 7:
-                printAllVegetables(userController.rangeByCalories(currentCustomer,30,70));
+                printAllVegetables(userController.rangeByCalories(currentCustomer, 30, 70));
                 break;
             case 8:
                 System.out.println((userController.summaryOfCaloriesSalad(currentCustomer)));
