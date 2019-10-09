@@ -10,4 +10,3 @@ public class Tomato extends Vegetable {
         return "This is Tomato{id="+ id + ", calories=" + calories + ", weight=" + weight + ", price=" + price + '}';
     }
 }
-
