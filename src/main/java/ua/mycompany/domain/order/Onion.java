@@ -7,7 +7,6 @@ public class Onion extends Vegetable {
 
     @Override
     public String toString() {
-        return "This is Onion{id="+ id + "calories=" + calories + ", weight=" + weight + ", price=" + price + '}';
+        return "This is Onion{id="+ id + ", calories=" + calories + ", weight=" + weight + ", price=" + price + '}';
     }
 }
-

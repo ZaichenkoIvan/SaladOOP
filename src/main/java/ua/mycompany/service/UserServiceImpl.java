@@ -6,11 +6,9 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ua.mycompany.domain.customer.Customer;
 import ua.mycompany.domain.order.Vegetable;
-import ua.mycompany.exception.CustomerNotExistRuntimeException;
-import ua.mycompany.exception.UncorrectedIdRuntimeException;
-import ua.mycompany.exception.UncorrectedLoginRuntimeException;
-import ua.mycompany.exception.VegetableNotExistRuntimeException;
+import ua.mycompany.exception.*;
 import ua.mycompany.helper.utility.PasswordUtils;
+import ua.mycompany.helper.validator.UserValidator;
 import ua.mycompany.repository.CustomerRepository;
 
 import java.util.ArrayList;
@@ -22,16 +20,22 @@ public class UserServiceImpl implements UserService {
 
     protected CustomerRepository customerRepository;
     private VegetableService vegetableService;
+    private UserValidator userValidator;
 
     @Autowired
-    public UserServiceImpl(CustomerRepository customerRepository, VegetableService vegetableService) {
+    public UserServiceImpl(CustomerRepository customerRepository, VegetableService vegetableService, UserValidator userValidator) {
         this.customerRepository = customerRepository;
         this.vegetableService = vegetableService;
+        this.userValidator = userValidator;
     }
 
     public Customer register(Customer customer) {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        if(!userValidator.validate(customer)){
+            throw new CustomerNotValidateRuntimeException("Customer has not validate data");
         }
 
         String encodePassword = PasswordUtils.generateSecurePassword(customer.getPassword());
@@ -76,6 +80,10 @@ public class UserServiceImpl implements UserService {
             throw new CustomerNotExistRuntimeException("Customer not exist");
         }
 
+        if(!userValidator.validate(customer)){
+            throw new CustomerNotValidateRuntimeException("Customer has not validate data");
+        }
+
         customerRepository.update(customer);
     }
 
@@ -85,6 +93,10 @@ public class UserServiceImpl implements UserService {
             throw new CustomerNotExistRuntimeException("Customer not exist");
         }
 
+        if(!userValidator.validate(customer)){
+            throw new CustomerNotValidateRuntimeException("Customer has not validate data");
+        }
+
         return customer.getSalad().getVegetables();
     }
 
@@ -92,6 +104,10 @@ public class UserServiceImpl implements UserService {
     public void addVegetable(Customer customer, Long idVegetable) {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        if(!userValidator.validate(customer)){
+            throw new CustomerNotValidateRuntimeException("Customer has not validate data");
         }
 
         Vegetable vegetable = vegetableService.findById(idVegetable);
@@ -105,6 +121,10 @@ public class UserServiceImpl implements UserService {
             throw new CustomerNotExistRuntimeException("Customer not exist");
         }
 
+        if(!userValidator.validate(customer)){
+            throw new CustomerNotValidateRuntimeException("Customer hasn't validate data");
+        }
+
         Vegetable vegetable = vegetableService.findById(idVegetable);
         customer.getSalad().remove(vegetable);
         update(customer);
@@ -116,6 +136,10 @@ public class UserServiceImpl implements UserService {
             throw new CustomerNotExistRuntimeException("Customer not exist");
         }
 
+        if(!userValidator.validate(customer)){
+            throw new CustomerNotValidateRuntimeException("Customer has not validate data");
+        }
+
         return customer.getSalad().sort();
     }
 
@@ -125,6 +149,10 @@ public class UserServiceImpl implements UserService {
             throw new CustomerNotExistRuntimeException("Customer not exist");
         }
 
+        if(!userValidator.validate(customer)){
+            throw new CustomerNotValidateRuntimeException("Customer has not validate data");
+        }
+
         return customer.getSalad().searchElementCalories(startRange, endRange);
     }
 
@@ -132,6 +160,10 @@ public class UserServiceImpl implements UserService {
     public int summaryOfCaloriesSalad(Customer customer) {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer not exist");
+        }
+
+        if(!userValidator.validate(customer)){
+            throw new CustomerNotValidateRuntimeException("Customer has not validate data");
         }
 
         return customer.getSalad().getSummaryOfCalories();

@@ -7,6 +7,6 @@ public class Cabbage extends Vegetable {
 
     @Override
     public String toString() {
-        return "This is Cabbage{id="+ id + "calories=" + calories + ", weight=" + weight + ", price=" + price + '}';
+        return "This is Cabbage{id="+ id + ", calories=" + calories + ", weight=" + weight + ", price=" + price + '}';
     }
 }
