@@ -1,12 +1,12 @@
 package ua.mycompany.init;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.mycompany.domain.customer.Address;
 import ua.mycompany.domain.customer.Customer;
 import ua.mycompany.domain.customer.Role;
-import ua.mycompany.domain.order.*;
+import ua.mycompany.domain.order.impl.*;
 import ua.mycompany.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ua.mycompany.service.VegetableService;
 
 import java.time.LocalDate;

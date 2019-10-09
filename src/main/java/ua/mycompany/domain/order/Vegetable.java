@@ -1,6 +1,6 @@
 package ua.mycompany.domain.order;
 
-import ua.mycompany.exception.VegetableUncorectedDataRuntimeException;
+import ua.mycompany.exception.VegetableUncorrectedDataRuntimeException;
 
 import java.util.Objects;
 
@@ -13,7 +13,7 @@ public abstract class Vegetable implements Comparable<Vegetable> {
 
     public Vegetable(int calories, double weight, int price) {
         if (calories < 0 || weight < 0 || price < 0) {
-            throw new VegetableUncorectedDataRuntimeException("Data for Vegetable isn't correct");
+            throw new VegetableUncorrectedDataRuntimeException("Data for Vegetable isn't correct");
         }
 
         this.calories = calories;

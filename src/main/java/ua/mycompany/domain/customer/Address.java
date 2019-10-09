@@ -1,5 +1,7 @@
 package ua.mycompany.domain.customer;
 
+import ua.mycompany.util.prototype.Prototype;
+
 import java.util.Objects;
 
 public class Address implements Prototype {
