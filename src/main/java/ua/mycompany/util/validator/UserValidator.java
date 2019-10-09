@@ -11,7 +11,7 @@ import ua.mycompany.util.validator.impl.SurnameValidator;
 
 @Component
 public class UserValidator {
-    private static final Logger logger = Logger.getLogger(UserValidator.class);
+    private static final Logger LOGGER = Logger.getLogger(UserValidator.class);
     private EmailValidator emailValidator;
     private NameValidator nameValidator;
     private PhoneValidator phoneValidator;
@@ -32,9 +32,9 @@ public class UserValidator {
                 phoneValidator.validate(customer.getPhoneNumber()) &&
                 surnameValidator.validate(customer.getSurname());
         if (validate) {
-            logger.info("Customer validate successful");
+            LOGGER.info("Customer validate successful");
         } else {
-            logger.error("Validate error in UserValidator!!!");
+            LOGGER.error("Validate error in UserValidator!!!");
         }
 
         return validate;
