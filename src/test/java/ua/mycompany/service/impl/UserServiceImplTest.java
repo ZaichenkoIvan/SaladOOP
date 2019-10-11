@@ -227,12 +227,12 @@ public class UserServiceImplTest {
     }
 
     @Test(expected = CustomerNotExistRuntimeException.class)
-    public void shouldReturnCustomerNotExistRuntimeExceptionInAddVegetable() {
+    public void shouldReturnCustomerNotExistRuntimeExceptionInaddInsurance() {
         userService.addVegetable(null, 1L);
     }
 
     @Test(expected = CustomerNotExistRuntimeException.class)
-    public void shouldReturnCustomerNotExistRuntimeExceptionInDeleteVegetable() {
+    public void shouldReturnCustomerNotExistRuntimeExceptionIndeleteInsurance() {
         userService.deleteVegetable(null, 1L);
     }
 
@@ -243,7 +243,7 @@ public class UserServiceImplTest {
 
     @Test(expected = CustomerNotExistRuntimeException.class)
     public void shouldReturnCustomerNotExistRuntimeExceptionInRangeVegetable() {
-        userService.rangeByCalories(null, 10, 100);
+        userService.rangeByCalories(null, -0.1, 0.5);
     }
 
     @Test(expected = CustomerNotExistRuntimeException.class)

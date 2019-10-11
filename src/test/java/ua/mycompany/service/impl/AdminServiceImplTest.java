@@ -11,8 +11,6 @@ import ua.mycompany.domain.customer.Customer;
 import ua.mycompany.domain.customer.Role;
 import ua.mycompany.exception.UncorrectedIdRuntimeException;
 import ua.mycompany.repository.CustomerRepository;
-import ua.mycompany.service.VegetableService;
-import ua.mycompany.util.validator.UserValidator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,12 +27,6 @@ public class AdminServiceImplTest {
 
     @Mock
     private CustomerRepository customerRepository;
-
-    @Mock
-    private UserValidator userValidator;
-
-    @Mock
-    private VegetableService vegetableService;
 
     @InjectMocks
     private AdminServiceImpl adminService;
@@ -86,5 +78,4 @@ public class AdminServiceImplTest {
     public void shouldReturnUncorrectedIdRuntimeExceptionInFindById() {
         adminService.findById(-1L);
     }
-
 }

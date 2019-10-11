@@ -8,6 +8,7 @@ import ua.mycompany.controller.VegetableController;
 import ua.mycompany.domain.customer.Customer;
 import ua.mycompany.domain.customer.Role;
 import ua.mycompany.domain.order.Vegetable;
+import ua.mycompany.exception.AbstractLoggerRuntimeException;
 import ua.mycompany.util.localization.UTF8Control;
 import ua.mycompany.util.sort.BubbleSort;
 import ua.mycompany.util.validator.ValidatorFactory;
@@ -59,20 +60,26 @@ public class CustomerViewInfo {
             } else
                 chooseMenuLang();
         } catch (Exception e) {
-            throw new IllegalArgumentException(lang.getString("uncorrectedArgument"));
+            System.out.println(("uncorrectedArgument"));
+            chooseLang(chooseLanguage);
         }
         loginOrRegister();
     }
 
     private void loginOrRegister() {
-        System.out.println("1 - " + lang.getString("registration"));
-        System.out.println("2 - " + lang.getString("login"));
-        int loginOrRegister = in.nextInt();
-        if (loginOrRegister == 1) {
-            register();
-        } else if (loginOrRegister == 2) {
-            loginCustomer();
-        } else {
+        try {
+            System.out.println("1 - " + lang.getString("registration"));
+            System.out.println("2 - " + lang.getString("login"));
+            int loginOrRegister = in.nextInt();
+            if (loginOrRegister == 1) {
+                register();
+            } else if (loginOrRegister == 2) {
+                loginCustomer();
+            } else {
+                loginOrRegister();
+            }
+        }
+        catch (AbstractLoggerRuntimeException e){
             loginOrRegister();
         }
 
@@ -87,70 +94,74 @@ public class CustomerViewInfo {
     }
 
     private void menuAdmin() {
-        System.out.println(lang.getString("menu"));
-        System.out.println("1 - " + lang.getString("viewCustomer"));
-        System.out.println("2 - " + lang.getString("sortCustomer"));
-        System.out.println("3 - " + lang.getString("inputId"));
-        System.out.println("4 - " + lang.getString("viewAllVegetables"));
-        System.out.println("5 - " + lang.getString("deleteVegetables"));
-        System.out.println("6 - " + lang.getString("viewOwnVegetables"));
-        System.out.println("7 - " + lang.getString("addOwnVegetables"));
-        System.out.println("8 - " + lang.getString("deleteOwnVegetables"));
-        System.out.println("9 - " + lang.getString("sortOwnVegetables"));
-        System.out.println("10 - " + lang.getString("rangeOwnVegetablesByCalories"));
-        System.out.println("11 - " + lang.getString("sumOwnVegetablesByCalories"));
-        System.out.println("12 - " + lang.getString("chooseLanguage"));
-        System.out.println("13 - " + lang.getString("exit"));
-
-
-        int choice;
         try {
-            choice = in.nextInt();
-        } catch (Exception e) {
-            throw new IllegalArgumentException(lang.getString("uncorrectedArgument"));
-        }
+            System.out.println(lang.getString("menu"));
+            System.out.println("1 - " + lang.getString("viewCustomer"));
+            System.out.println("2 - " + lang.getString("sortCustomer"));
+            System.out.println("3 - " + lang.getString("inputId"));
+            System.out.println("4 - " + lang.getString("viewAllVegetables"));
+            System.out.println("5 - " + lang.getString("deleteVegetables"));
+            System.out.println("6 - " + lang.getString("viewOwnVegetables"));
+            System.out.println("7 - " + lang.getString("addOwnVegetables"));
+            System.out.println("8 - " + lang.getString("deleteOwnVegetables"));
+            System.out.println("9 - " + lang.getString("sortOwnVegetables"));
+            System.out.println("10 - " + lang.getString("rangeOwnVegetablesByCalories"));
+            System.out.println("11 - " + lang.getString("sumOwnVegetablesByCalories"));
+            System.out.println("12 - " + lang.getString("chooseLanguage"));
+            System.out.println("13 - " + lang.getString("exit"));
 
-        switch (choice) {
-            case 1:
-                printAllCustomers(adminController.findAll());
-                break;
-            case 2:
-                sortCustomer();
-                break;
-            case 3:
-                System.out.println(findById());
-                break;
-            case 4:
-                printAllVegetables(vegetableController.findAll());
-                break;
-            case 5:
-                deleteVegetable();
-                break;
-            case 6:
-                printAllVegetables(adminController.findAllVegetable(currentCustomer));
-                break;
-            case 7:
-                addOwnVegetable();
-                break;
-            case 8:
-                deleteOwnVegetable();
-                break;
-            case 9:
-                printAllVegetables(adminController.sortSalad(currentCustomer));
-                break;
-            case 10:
-                printAllVegetables(adminController.rangeByCalories(currentCustomer, 30, 70));
-                break;
-            case 11:
-                System.out.println((adminController.summaryOfCaloriesSalad(currentCustomer)));
-                break;
-            case 12:
-                chooseMenuLang();
-                break;
-            case 13:
-                System.exit(0);
+
+            int choice;
+            try {
+                choice = in.nextInt();
+            } catch (Exception e) {
+                throw new IllegalArgumentException(lang.getString("uncorrectedArgument"));
+            }
+
+            switch (choice) {
+                case 1:
+                    printAllCustomers(adminController.findAll());
+                    break;
+                case 2:
+                    sortCustomer();
+                    break;
+                case 3:
+                    System.out.println(findById());
+                    break;
+                case 4:
+                    printAllVegetables(vegetableController.findAll());
+                    break;
+                case 5:
+                    deleteVegetable();
+                    break;
+                case 6:
+                    printAllVegetables(adminController.findAllVegetable(currentCustomer));
+                    break;
+                case 7:
+                    addOwnVegetable();
+                    break;
+                case 8:
+                    deleteOwnVegetable();
+                    break;
+                case 9:
+                    printAllVegetables(adminController.sortSalad(currentCustomer));
+                    break;
+                case 10:
+                    printAllVegetables(adminController.rangeByCalories(currentCustomer, 30, 70));
+                    break;
+                case 11:
+                    System.out.println((adminController.summaryOfCaloriesSalad(currentCustomer)));
+                    break;
+                case 12:
+                    chooseMenuLang();
+                    break;
+                case 13:
+                    System.exit(0);
+            }
+            menuAdmin();
+        } catch (AbstractLoggerRuntimeException e) {
+            menuAdmin();
         }
-        menuAdmin();
 
     }
 
@@ -173,57 +184,61 @@ public class CustomerViewInfo {
     }
 
     private void menuUser() {
-        System.out.println(lang.getString("menu"));
-        System.out.println("1 - " + lang.getString("currentId"));
-        System.out.println("2 - " + lang.getString("viewAllVegetables"));
-        System.out.println("3 - " + lang.getString("viewOwnVegetables"));
-        System.out.println("4 - " + lang.getString("addOwnVegetables"));
-        System.out.println("5 - " + lang.getString("deleteOwnVegetables"));
-        System.out.println("6 - " + lang.getString("sortOwnVegetables"));
-        System.out.println("7 - " + lang.getString("rangeOwnVegetablesByCalories"));
-        System.out.println("8 - " + lang.getString("sumOwnVegetablesByCalories"));
-        System.out.println("9 - " + lang.getString("chooseLanguage"));
-        System.out.println("10 - " + lang.getString("exit"));
-
-        int choice;
         try {
-            choice = in.nextInt();
-        } catch (Exception e) {
-            throw new IllegalArgumentException(lang.getString("uncorrectedArgument"));
-        }
+            System.out.println(lang.getString("menu"));
+            System.out.println("1 - " + lang.getString("currentId"));
+            System.out.println("2 - " + lang.getString("viewAllVegetables"));
+            System.out.println("3 - " + lang.getString("viewOwnVegetables"));
+            System.out.println("4 - " + lang.getString("addOwnVegetables"));
+            System.out.println("5 - " + lang.getString("deleteOwnVegetables"));
+            System.out.println("6 - " + lang.getString("sortOwnVegetables"));
+            System.out.println("7 - " + lang.getString("rangeOwnVegetablesByCalories"));
+            System.out.println("8 - " + lang.getString("sumOwnVegetablesByCalories"));
+            System.out.println("9 - " + lang.getString("chooseLanguage"));
+            System.out.println("10 - " + lang.getString("exit"));
 
-        switch (choice) {
-            case 1:
-                System.out.println(userController.findById(currentCustomer.getId()));
-                break;
-            case 2:
-                printAllVegetables(vegetableController.findAll());
-                break;
-            case 3:
-                printAllVegetables(userController.findAllVegetable(currentCustomer));
-                break;
-            case 4:
-                addOwnVegetableUser();
-                break;
-            case 5:
-                deleteOwnVegetableUser();
-                break;
-            case 6:
-                printAllVegetables(userController.sortSalad(currentCustomer));
-                break;
-            case 7:
-                printAllVegetables(userController.rangeByCalories(currentCustomer, 30, 70));
-                break;
-            case 8:
-                System.out.println((userController.summaryOfCaloriesSalad(currentCustomer)));
-                break;
-            case 9:
-                chooseMenuLang();
-                break;
-            case 10:
-                System.exit(0);
+            int choice;
+            try {
+                choice = in.nextInt();
+            } catch (Exception e) {
+                throw new IllegalArgumentException(lang.getString("uncorrectedArgument"));
+            }
+
+            switch (choice) {
+                case 1:
+                    System.out.println(userController.findById(currentCustomer.getId()));
+                    break;
+                case 2:
+                    printAllVegetables(vegetableController.findAll());
+                    break;
+                case 3:
+                    printAllVegetables(userController.findAllVegetable(currentCustomer));
+                    break;
+                case 4:
+                    addOwnVegetableUser();
+                    break;
+                case 5:
+                    deleteOwnVegetableUser();
+                    break;
+                case 6:
+                    printAllVegetables(userController.sortSalad(currentCustomer));
+                    break;
+                case 7:
+                    printAllVegetables(userController.rangeByCalories(currentCustomer, 30, 70));
+                    break;
+                case 8:
+                    System.out.println((userController.summaryOfCaloriesSalad(currentCustomer)));
+                    break;
+                case 9:
+                    chooseMenuLang();
+                    break;
+                case 10:
+                    System.exit(0);
+            }
+            menuUser();
+        } catch (AbstractLoggerRuntimeException e) {
+            menuUser();
         }
-        menuUser();
     }
 
     private void deleteOwnVegetableUser() {
@@ -241,37 +256,45 @@ public class CustomerViewInfo {
 
     private void register() {
 
-        String name = writeFieldWithValidator("name");
-        String surname = writeFieldWithValidator("surname");
-        String email = writeFieldWithValidator("email");
-        String phoneNumber = writeFieldWithValidator("phoneNumber");
-        String birthday = writeFieldWithValidator("date");
-        System.out.println(lang.getString("passwordCustomer"));
-        String password = in.nextLine();
+        try {
+            String name = writeFieldWithValidator("name");
+            String surname = writeFieldWithValidator("surname");
+            String email = writeFieldWithValidator("email");
+            String phoneNumber = writeFieldWithValidator("phoneNumber");
+            String birthday = writeFieldWithValidator("date");
+            System.out.println(lang.getString("passwordCustomer"));
+            String password = in.nextLine();
 
-        Customer customer = Customer.builder()
-                .withName(name)
-                .withSurname(surname)
-                .withBirthday(parseStringToLocalDate(birthday))
-                .withPhoneNumber(phoneNumber)
-                .withEmail(email)
-                .withPassword(password)
-                .build();
+            Customer customer = Customer.builder()
+                    .withName(name)
+                    .withSurname(surname)
+                    .withBirthday(parseStringToLocalDate(birthday))
+                    .withPhoneNumber(phoneNumber)
+                    .withEmail(email)
+                    .withPassword(password)
+                    .build();
 
-        userController.register(customer);
-        System.out.println(lang.getString("CustomerCreated") + "\n");
-        currentCustomer = customer;
-        menu();
+            userController.register(customer);
+            System.out.println(lang.getString("CustomerCreated") + "\n");
+            currentCustomer = customer;
+            menu();
+        } catch (AbstractLoggerRuntimeException e) {
+            register();
+        }
     }
 
     private void loginCustomer() {
-        String email = writeFieldWithValidator("email");
+        try {
+            String email = writeFieldWithValidator("email");
 
-        System.out.println(lang.getString("passwordCustomer"));
-        String password = in.nextLine();
+            System.out.println(lang.getString("passwordCustomer"));
+            String password = in.nextLine();
 
-        currentCustomer = userController.login(email, password);
-        menu();
+            currentCustomer = userController.login(email, password);
+            menu();
+        } catch (AbstractLoggerRuntimeException e) {
+            loginCustomer();
+        }
     }
 
     private LocalDate parseStringToLocalDate(String date) {

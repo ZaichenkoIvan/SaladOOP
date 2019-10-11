@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public final class SurnameValidator implements Validator {
+public class SurnameValidator implements Validator {
     private static final String SURNAME_PATTERN = "[a-zA-Z]{1,}";
 
     @Override

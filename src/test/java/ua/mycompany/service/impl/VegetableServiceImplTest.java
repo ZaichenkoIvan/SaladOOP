@@ -20,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.Silent.class)
+@RunWith(MockitoJUnitRunner.class)
 public class VegetableServiceImplTest {
 
     @Mock
@@ -72,9 +72,8 @@ public class VegetableServiceImplTest {
         Vegetable cucumberActual = vegetableService.deleteById(1L);
         assertThat(cucumber, is(cucumberActual));
     }
-
     @Test(expected = VegetableNotExistRuntimeException.class)
-    public void shouldReturnVegetableNotExistRuntimeExceptionInSave() {
+    public void shouldReturnInsuranceNotExistRuntimeExceptionInSave() {
         vegetableService.save(null);
     }
 
@@ -84,7 +83,7 @@ public class VegetableServiceImplTest {
     }
 
     @Test(expected = VegetableNotExistRuntimeException.class)
-    public void shouldReturnVegetableNotExistRuntimeExceptionInUpdate() {
+    public void shouldReturnInsuranceNotExistRuntimeExceptionInUpdate() {
         vegetableService.update(null);
     }
 
@@ -92,5 +91,4 @@ public class VegetableServiceImplTest {
     public void shouldReturnUncorrectedIdRuntimeExceptionInDeleteById() {
         vegetableService.deleteById(-1L);
     }
-
 }

@@ -28,14 +28,14 @@ public class SaladTest {
     }
 
     @Test
-    public void add() {
+    public void shouldReturnAddingVegetable() {
         Cabbage cabbage = new Cabbage(70,70,70);
         salad.add(cabbage);
         assertThat(salad.getVegetables(), hasItem(cabbage));
     }
 
     @Test
-    public void remove() {
+    public void shouldReturnDeleteVegetable() {
         Cabbage cabbage = new Cabbage(70,70,70);
         salad.add(cabbage);
         salad.remove(cabbage);
@@ -43,7 +43,7 @@ public class SaladTest {
     }
 
     @Test
-    public void sort() {
+    public void shouldReturnSortingVegetable() {
         Cabbage cabbage = new Cabbage(70,70,70);
         salad.add(cabbage);
 
@@ -56,14 +56,14 @@ public class SaladTest {
     }
 
     @Test
-    public void getSummaryOfCalories() {
+    public void shouldReturnSummaryOfCalories() {
         Cabbage cabbage = new Cabbage(70,70,70);
         salad.add(cabbage);
         assertThat(220, is(salad.getSummaryOfCalories()));
     }
 
     @Test
-    public void searchElementCalories() {
+    public void shouldReturnSearchElementCalories() {
         Cabbage cabbage = new Cabbage(70,70,70);
         salad.add(cabbage);
 
