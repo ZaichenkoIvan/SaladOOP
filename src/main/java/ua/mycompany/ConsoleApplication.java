@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import ua.mycompany.init.Menu;
 import ua.mycompany.view.CustomerViewInfo;
 
+import java.util.ArrayList;
+
 @Component
 public class ConsoleApplication {
     private Menu menu;
@@ -14,16 +16,17 @@ public class ConsoleApplication {
 
     @Autowired
     public ConsoleApplication(Menu menu, CustomerViewInfo customerViewInfo) {
+
         this.menu = menu;
         this.customerViewInfo = customerViewInfo;
     }
 
     public static void main(String[] args) {
-
         ApplicationContext ctx =
                 new AnnotationConfigApplicationContext("ua.mycompany");
         ConsoleApplication main = ctx.getBean(ConsoleApplication.class);
         main.menu.run();
         main.customerViewInfo.run();
+
     }
 }

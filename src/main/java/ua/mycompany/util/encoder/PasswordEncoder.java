@@ -28,7 +28,7 @@ public final class PasswordEncoder {
     }
 
     public static String generateSecurePassword(String password) {
-        String returnValue = null;
+        String returnValue;
         byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
 
         returnValue = Base64.getEncoder().encodeToString(securePassword);
@@ -38,12 +38,10 @@ public final class PasswordEncoder {
 
     public static boolean verifyCustomerPassword(String providedPassword,
                                                  String securedPassword) {
-        boolean returnValue = false;
+        boolean returnValue;
 
-        // Generate New secure password with the same salt
         String newSecurePassword = generateSecurePassword(providedPassword);
 
-        // Check if two passwords are equal
         returnValue = newSecurePassword.equalsIgnoreCase(securedPassword);
 
         return returnValue;
